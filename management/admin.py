@@ -1,3 +1,41 @@
 from django.contrib import admin
+from management.models import *
 
-# Register your models here.
+
+#models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='owner_id')
+admin.site.register(Notice)
+admin.site.register(News)
+admin.site.register(Holiday)
+admin.site.register(Event)
+admin.site.register(Visitor)
+admin.site.register(Attandance)
+admin.site.register(Payroll)
+admin.site.register(Accounting)
+admin.site.register(Designation)
+admin.site.register(Employee)
+admin.site.register(Teacher)
+admin.site.register(Class)
+admin.site.register(Section)
+admin.site.register(Subject)
+admin.site.register(Rutine)
+admin.site.register(Syllabus)
+admin.site.register(Student)
+admin.site.register(Gurdian)
+admin.site.register(StudentAttandance)
+admin.site.register(Assignment)
+admin.site.register(ExamGrade)
+admin.site.register(ExamTerm)
+admin.site.register(ExamSchedule)
+admin.site.register(ExamAttandance)
+admin.site.register(Book)
+admin.site.register(Issue)
+admin.site.register(Fine)
+admin.site.register(Vehicle)
+admin.site.register(Route)
+admin.site.register(TransportMember)
+admin.site.register(Hostel)
+admin.site.register(Room)
+admin.site.register(HostelMember)
+
+
+
