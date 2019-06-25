@@ -5,14 +5,16 @@
 4.Add to Installed apps <br />
 <br/><br/>
 # User-Institute Basic Models added 
-1.Profile <br />
-2.Owner <br />
-3.SchoolProfileRole <br />
-4.ChainProfileRole <br />
-5.School <br />
-6.SchoolRole <br />
-7.Chain <br />
-8.ChainRole <br />
+<ol>
+<li>Profile </li>
+<li>Owner </li>
+<li>SchoolProfileRole </li>
+<li>ChainProfileRole </li>
+<li>School </li>
+<li>SchoolRole </li>
+<li>Chain </li>
+<li>ChainRole </li>
+</ol>
 <br/><br/>
 # Management Models added 
 <ol>
