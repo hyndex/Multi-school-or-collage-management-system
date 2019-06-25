@@ -2,7 +2,6 @@ from django.contrib import admin
 from management.models import *
 
 
-#models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='owner_id')
 admin.site.register(Notice)
 admin.site.register(News)
 admin.site.register(Holiday)

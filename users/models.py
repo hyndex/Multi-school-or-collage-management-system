@@ -14,8 +14,8 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.phone
-        
 
+#run when any new institute created or deleted
 class Owner(models.Model):
     type = models.CharField(max_length=50, blank=True, null=True)
     institute_id = models.CharField(max_length=50, blank=True, null=True)
