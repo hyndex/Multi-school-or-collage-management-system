@@ -4,6 +4,7 @@ from users.models import *
 
 
 admin.site.register(Profile)
+admin.site.register(Owner)
 admin.site.register(SchoolProfileRole)
 admin.site.register(ChainProfileRole)
 admin.site.register(School)

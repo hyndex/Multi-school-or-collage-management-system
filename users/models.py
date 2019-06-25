@@ -14,6 +14,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.phone
+        
+
+class Owner(models.Model):
+    type = models.CharField(max_length=50, blank=True, null=True)
+    institute_id = models.CharField(max_length=50, blank=True, null=True)
+    def __str__(self):
+        return self.institute_id
 
 
 
