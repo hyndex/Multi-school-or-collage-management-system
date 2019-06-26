@@ -99,7 +99,7 @@ class Employee(models.Model):
     salary_grade = models.ForeignKey(Payroll, on_delete=models.PROTECT, blank=True, null=True)
     joining_date = models.DateField(blank=True, null=True)
     Qualification = models.CharField(max_length=30, blank=True, null=True, default='')
-    resume = models.FileField(upload_to='media/resume/',blank=True, null=True)
+    resume = models.FileField(upload_to='resume/',blank=True, null=True)
     created_by = models.CharField(max_length=30, blank=True, null=True)
     group = models.CharField(max_length=30, blank=True, null=True)
 
@@ -148,7 +148,7 @@ class Syllabus(models.Model):
     owner_id = models.ForeignKey(Owner, on_delete=models.CASCADE,  related_name='Syllabus_owner')
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    syllabus = models.FileField(upload_to='media/syllabus/',blank=True, null=True)    
+    syllabus = models.FileField(upload_to='syllabus/',blank=True, null=True)    
     created_by = models.CharField(max_length=30, blank=True, null=True)
 
 class Student(models.Model):
@@ -158,7 +158,7 @@ class Student(models.Model):
     section = models.ForeignKey(Section, on_delete=models.PROTECT, blank=True, null=True)
     privious_school = models.CharField(max_length=50, blank=False, null=False)
     privious_class = models.CharField(max_length=20, blank=False, null=False)
-    tc = models.FileField(upload_to='media/tc/',blank=True, null=True)    
+    tc = models.FileField(upload_to='tc/',blank=True, null=True)    
     created_by = models.CharField(max_length=30, blank=True, null=True)
 
 
@@ -182,7 +182,7 @@ class Assignment(models.Model):
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, blank=True, null=True)
     deadline = models.DateField()
-    assignment = models.FileField(upload_to='media/assignment/',blank=True, null=True) 
+    assignment = models.FileField(upload_to='assignment/',blank=True, null=True) 
     created_by = models.CharField(max_length=30, blank=True, null=True)
 
 

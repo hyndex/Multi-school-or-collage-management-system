@@ -1,0 +1,87 @@
+get_object_or_404(<model>,id=id) = [try: Model.objects.get(id=id) except: return HttpResponse(404)]
+
+########################################################
+searializers => create(self,validated_data) # will run when we will call .save() from views
+    #x = serializer instance(data to be inseted)
+    x = serializer instance (data = {})
+    x.is_valid()
+    x.errors()
+    x.validated_data
+    x.save()
+    x.data
+
+#updating or serializing all at a time (put(partial=False/default) => need to pass all data , patch(partial=True) => need to pass only updated data)
+    p = Model.objects.all()[0]
+    #x = serializer instance(where objects,what to update)
+    x = Serializer instance(p , data={'updated_column':'value'},many = True, partial = True)
+    x.is_valid()
+    x.errors()
+    x.validated_data
+    x.save()
+    x.data
+
+#since  Model.objects.all() returns a queryset or data dictionary so to return as a Respose of API
+#to the user we must convert it to JSON
+#and for that we do not need to manually convery it to JSON
+#just use {{x = ModelSerializer(Model.objects.all()) }} which will automatically convert to JSON as per ModelSerializer
+#where x.data contains the JSON 
+#
+#NOTE if you use only for json persing then ModelSerializer(data)
+#     if you use to make an object or instance the ModelSerializer(data=data)
+#
+#e.g
+    #QuerySet
+        In [24]: Owner.objects.all()
+        Out[24]: <QuerySet [<Owner: 1>, <Owner: 2>, <Owner: 3>, <Owner: 4>, <Owner: 5>, <Owner: 6>, <Owner: 7>, <Owner: 10>]>
+    #JSON
+        Out[26]: OwnerSerializer(Owner.objects.all(),many=True).data
+        Out[27]: [OrderedDict([('type', 'school'), ('institute_id', '1'), ('created_by', '1')]), OrderedDict([('type', 'school'), ('institute_id', '2'), ('created_by', '1')]), OrderedDict([('type', 'school'), ('institute_id', '3'), ('created_by', '1')]), OrderedDict([('type', 'school'), ('institute_id', '4'), ('created_by', '1')]), OrderedDict([('type', 'chain'), ('institute_id', '5'), ('created_by', '1')]), OrderedDict([('type', 'chain'), ('institute_id', '6'), ('created_by', '1')]), OrderedDict([('type', 'chain'), ('institute_id', '7'), ('created_by', '1')]), OrderedDict([('type', 'school'), ('institute_id', '10'), ('created_by', '1')])]
+######################################################
+request
+    request.user => User.objects.get(id=request.user)
+
+######################################################
+
+    # def create(self, validated_data):
+    #     user = User.objects.create(
+    #         username=validated_data['phone'],
+    #         email=validated_data['email'],
+    #         first_name=validated_data['first_name'],
+    #         last_name=validated_data['last_name']
+    #     )
+
+    #     user.set_password(validated_data['password'])
+    #     user.save()
+
+    
+    ######## saving a data ################
+    # p = ProfileSerializer(data = {'phone':'9876543210','email':'dikibhuyan@gmail.com'})
+    #
+    # if p.is_valid():
+    #   p.save()
+    #   print(p.validated_data)
+    #else:
+    #   print(p.errors)
+
+    ########## Fetching data ###############
+    # u = Profile.objects.all()
+    #or user = User.objects.get(id = 1)
+    # print(u[i])
+
+    ########## Updateing data ###############
+    # let there is another field in Profile i.e 'created_by' which is a forign key of Users
+    # p = Profile.objects.all()
+    # u = Users.objects.get(id = 1)
+    #####################################################################
+    # updating or serializing one at a time
+    # p1 = ProfileSerializer(p[0] ,'created_by' = u.id, partial = True)
+    # p1.save()
+    # print(str(p1.data))
+    #####################################################################
+    # updating or serializing all at a time
+    # p = ProfileSerializer(p , many = True,'created_by' = u.id, partial = True)
+    # p.save()
+    #####################################################################
+
+
+        

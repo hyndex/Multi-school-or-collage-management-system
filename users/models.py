@@ -4,22 +4,20 @@ from django.utils import timezone
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=50, blank=True, null=True)
-    last_name = models.CharField(max_length=50, blank=True, null=True)
-    email = models.EmailField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=False, null=True, default = '')
     address = models.CharField(max_length=150, blank=True, null=True)
     status = models.CharField(max_length=10, blank=True, null=True)
-    image = models.ImageField(upload_to='media/profile/',blank=True, null=True)    
+    image = models.ImageField(upload_to='profile/',blank=True, null=True)    
     
 
     def __str__(self):
-        return self.phone
+        return "{0} {1}".format(self.user.first_name,self.user.last_name)
 
 #run when any new institute created or deleted
 class Owner(models.Model):
     type = models.CharField(max_length=50, blank=True, null=True)
     institute_id = models.CharField(max_length=50, blank=True, null=True)
+    created_by = models.CharField(max_length=30, blank=True, null=True)
     def __str__(self):
         return self.institute_id
 
@@ -41,21 +39,6 @@ class Chain(models.Model):
     def __str__(self):
         return self.name
 
-class ChainRole(models.Model):
-    chain = models.ForeignKey(Chain, on_delete=models.CASCADE)
-    role = models.CharField(max_length=50)
-    module = models.CharField(max_length=50)
-    create = models.BooleanField(default=False)
-    read = models.BooleanField(default=True)
-    update = models.BooleanField(default=False)
-    delete = models.BooleanField(default=False)
-    type = models.CharField(max_length=50, default='tree')
-    created_by = models.CharField(max_length=30, blank=True, null=True)
-    
-
-    def __str__(self):
-        return self.role
-
 class School(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     address = models.CharField(max_length=300, blank=True, null=True)
@@ -75,8 +58,8 @@ class School(models.Model):
     def __str__(self):
         return self.name
 
-class SchoolRole(models.Model):
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
+class RolePersission(models.Model):
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     role = models.CharField(max_length=50)
     module = models.CharField(max_length=50)
     create = models.BooleanField(default=False)
@@ -90,22 +73,14 @@ class SchoolRole(models.Model):
         return self.role
 
 
-class SchoolProfileRole(models.Model):
+class ProfileRole(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    role = models.ForeignKey(SchoolRole, on_delete=models.CASCADE)
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    role = models.ForeignKey(RolePersission, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     created_by = models.CharField(max_length=30, blank=True, null=True)
 
     def __str__(self):
         return self.user.phone
 
-class ChainProfileRole(models.Model):
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    role = models.ForeignKey(ChainRole, on_delete=models.CASCADE)
-    chain = models.ForeignKey(Chain, on_delete=models.CASCADE)
-    created_by = models.CharField(max_length=30, blank=True, null=True)
-
-    def __str__(self):
-        return self.user.phone
 
 
