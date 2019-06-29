@@ -6,11 +6,6 @@ class NoticeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notice
         fields='__all__'
-        # fields = [
-        #     'type',
-        #     'institute_id',
-        #     'created_by',
-        # ]
 
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:
