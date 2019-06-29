@@ -42,6 +42,17 @@ request
 
 ######################################################
 
+
+#####################################################
+its a create metod of serializer which is called from
+ views before the data CRUD or it is the 
+ last line which will exicute before crud 
+ ===================================
+ {perform_create(self, serializer):
+    serializer.save(created_by = self.request.user)}
+    #which will automatically set created by user before inseting the data
+##################################################
+
     # def create(self, validated_data):
     #     user = User.objects.create(
     #         username=validated_data['phone'],

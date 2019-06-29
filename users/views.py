@@ -1,82 +1,62 @@
-from django.shortcuts import render
 from users.models import *
-from rest_framework import viewsets
 from users.serializers import *
-from django.http import JsonResponse
-from rest_framework.parsers import JSONParser
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import get_object_or_404
+from rest_framework import generics
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
-
-#Create your views here.
-@csrf_exempt
-def owner_view(request):
-    if request.method == 'GET':
-        owners = Owner.objects.all()
-        serializer = OwnerSerializer(owners, many=True)
-        return JsonResponse(serializer.data, safe=False)
-    elif request.method == 'POST':
-        #1.convert post requst data to json using json perser
-        data = JSONParser().parse(request)
-        #2.making and instance of Serializer
-        data = OwnerSerializer(data=data)
-        #3.checking the data is valid or not and if valid then saving it
-        if data.is_valid():
-            data.save() # data.data contains the newly saved touple
-            return JsonResponse(data.data, status=201)
-        #4.if data is not valid then taking whats the error
-        else:
-            return JsonResponse(data.error, status=400)
-
-@csrf_exempt
-def owner_view_details(request,id):
-    #1.fetching data to check if the data exist or not
-    try:
-        instance = Owner.objects.get(id=id)
-    except Owner.DoesNotExist as e:
-        return JsonResponse({'message':'404 Not found'}, status=404)
-
-    if request.method == 'GET':
-        serializer = OwnerSerializer(instance)
-        return JsonResponse(serializer.data, safe=False)
-
-    elif request.method == 'PUT': #for updaing all are same as create but need to provide (where,what) => (instance,data=data)
-        #1.convert post requst data to json using json perser
-        data = JSONParser().parse(request)
-        #2.making and instance of Serializer
-        data = OwnerSerializer(instance,data=data)
-        #3.checking the data is valid or not and if valid then saving it
-        if data.is_valid():
-            data.save() # data.data contains the newly saved touple
-            return JsonResponse(data.data, status=200)
-        #4.if data is not valid then taking whats the error
-        else:
-            return JsonResponse(data.error, status=400)
-
-    elif request.method == 'DELETE': #for deleting we just have to delete
-        instance.delete()
-        return JsonResponse({'message':'Successfully deleted'}, status=204)
-
-class OwnerViewSet(viewsets.ModelViewSet):
+class OwnerView(generics.ListCreateAPIView):
     queryset = Owner.objects.all()
     serializer_class = OwnerSerializer
+    authentication_classes = [SessionAuthentication,TokenAuthentication,BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+class OwnerDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Owner.objects.all()
+    serializer_class = OwnerSerializer
+    lookup_field='id'
 
-class ProfileViewSet(viewsets.ModelViewSet):
-    queryset =  Profile.objects.all()
-    serializer_class = ProfileSerializer
-
-class ChainViewSet(viewsets.ModelViewSet):
-    queryset =  Chain.objects.all()
+class ChainView(generics.ListCreateAPIView):
+    queryset = Chain.objects.all()
     serializer_class = ChainSerializer
+    
+class ChainDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Chain.objects.all()
+    serializer_class = ChainSerializer
+    lookup_field='id'
 
-class SchoolViewSet(viewsets.ModelViewSet):
-    queryset =  School.objects.all()
+class SchoolView(generics.ListCreateAPIView):
+    queryset = School.objects.all()
     serializer_class = SchoolSerializer
+    
+class SchoolDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = School.objects.all()
+    serializer_class = SchoolSerializer
+    lookup_field='id'
 
-class RolePersissionViewSet(viewsets.ModelViewSet):
-    queryset =  RolePersission.objects.all()
+class RolePersissionView(generics.ListCreateAPIView):
+    queryset = RolePersission.objects.all()
     serializer_class = RolePersissionSerializer
+    
+class RolePersissionDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = RolePersission.objects.all()
+    serializer_class = RolePersissionSerializer
+    lookup_field='id'
 
-class ProfileRoleViewSet(viewsets.ModelViewSet):
-    queryset =  ProfileRole.objects.all()
+class ProfileRoleView(generics.ListCreateAPIView):
+    queryset = ProfileRole.objects.all()
     serializer_class = ProfileRoleSerializer
+    
+class ProfileRoleDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProfileRole.objects.all()
+    serializer_class = ProfileRoleSerializer
+    lookup_field='id'
+
+class ProfileView(generics.ListCreateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    
+class ProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    lookup_field='id'
+

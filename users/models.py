@@ -70,7 +70,7 @@ class RolePersission(models.Model):
     created_by = models.CharField(max_length=30, blank=True, null=True)
 
     def __str__(self):
-        return self.role
+        return self.id
 
 
 class ProfileRole(models.Model):
@@ -80,7 +80,7 @@ class ProfileRole(models.Model):
     created_by = models.CharField(max_length=30, blank=True, null=True)
 
     def __str__(self):
-        return self.user.phone
+        return self.id
 
 
 
