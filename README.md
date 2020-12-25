@@ -1,7 +1,7 @@
 # Multi-school-or-collage-management-system CORE (backend)
 ![Made with Love in India](https://madewithlove.org.in/badge.svg) [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-It is a cloudbased online class management system with video conferancing solution. 
+It is a cloudbasedmulti school or collage management system made for chains. 
 But its only the backend 
 Build on Django
 
